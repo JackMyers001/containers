@@ -3,6 +3,7 @@
   extends: [
     "config:recommended",
     "helpers:pinGitHubActionDigests",
+    "github>JackMyers001/containers//.renovate/autoMerge.json5",
     ":disableRateLimiting",
     ":semanticCommits",
     ":timezone(Australia/Perth)",
