@@ -1,0 +1,22 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    {
+      description: "Auto-merge trusted GitHub Actions",
+      matchManagers: [
+        "github-actions"
+      ],
+      matchPackageNames: [
+        "/^actions\//",
+        "/^docker\//",
+        "/^github\//",
+      ],
+      automerge: true,
+      matchUpdateTypes: [
+        "minor",
+        "patch",
+        "digest"
+      ],
+    },
+  ]
+}
