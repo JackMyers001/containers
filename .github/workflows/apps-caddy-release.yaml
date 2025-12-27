@@ -1,0 +1,40 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Apps - Caddy - Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  extract_version:
+    name: Extract Caddy Version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.extract_version.outputs.version }}
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Extract Caddy version
+        id: extract_version
+        run: |
+          VERSION=$(grep -oP 'ARG CADDY_VERSION=\K[\d.]+' apps/caddy/Containerfile)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+        shell: bash
+
+  release:
+    name: Release Caddy Container Image
+    uses: ./.github/workflows/rw-build-and-push-container.yaml
+    needs:
+      - extract_version
+    permissions:
+      contents: read
+      packages: write
+    with:
+      app_name: caddy
+      app_version: ${{ needs.extract_version.outputs.version }}
+      containerfile_path: apps/caddy/Containerfile

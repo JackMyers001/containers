@@ -1,0 +1,17 @@
+ARG CADDY_VERSION=2.10.2
+
+FROM caddy:${CADDY_VERSION}-builder AS builder
+
+ARG CADDY_DNS_CLOUDFLARE_VERSION=0.2.2
+ARG CADDY_SECURITY_VERSION=1.1.31
+
+RUN xcaddy build \
+    --with github.com/caddy-dns/cloudflare@v${CADDY_DNS_CLOUDFLARE_VERSION} \
+    --with github.com/greenpau/caddy-security@v${CADDY_SECURITY_VERSION} \
+    --with github.com/WeidiDeng/caddy-cloudflare-ip
+
+FROM gcr.io/distroless/static-debian13:nonroot@sha256:b5b9fd04c8dcf72a173183c0b7dee47e053e002246b308a59f3441db7b8b9cc4 AS final
+
+COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
