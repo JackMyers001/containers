@@ -4,6 +4,7 @@
     "config:recommended",
     "helpers:pinGitHubActionDigests",
     "github>JackMyers001/containers//.renovate/autoMerge.json5",
+    "github>JackMyers001/containers//.renovate/customManagers.json5",
     ":disableRateLimiting",
     ":semanticCommits",
     ":timezone(Australia/Perth)",
