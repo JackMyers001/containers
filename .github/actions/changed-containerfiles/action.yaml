@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-action.json
+name: Detect Changed Containerfiles
+description: Return all changed Containerfiles in the pull request
+
+outputs:
+  changed_containerfiles:
+    description: JSON array of all changed Containerfiles
+    value: ${{ steps.changed-containerfiles.outputs.all_changed_files }}
+
+runs:
+  using: composite
+
+  steps:
+    - name: Get all changed Containerfiles
+      id: changed-containerfiles
+      uses: tj-actions/changed-files@e0021407031f5be11a464abee9a0776171c79891 # v47.0.1
+      with:
+        files: |
+          **/Containerfile
+        matrix: true
