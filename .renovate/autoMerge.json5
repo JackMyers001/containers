@@ -2,6 +2,24 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
+      description: "Auto-merge trusted Container images (MAJOR)",
+      matchManagers: ["dockerfile"],
+      matchPackageNames: [
+        "ghcr.io/renovatebot/renovate",
+      ],
+      automerge: true,
+      matchUpdateTypes: ["major", "minor", "patch", "digest"],
+    },
+    {
+      description: "Auto-merge trusted Container images (no MAJOR)",
+      matchManagers: ["dockerfile"],
+      matchPackageNames: [
+        "gcr.io/distroless/**",
+      ],
+      automerge: true,
+      matchUpdateTypes: ["minor", "patch", "digest"],
+    },
+    {
       description: "Auto-merge trusted GitHub Actions",
       matchManagers: [
         "github-actions"
