@@ -32,6 +32,12 @@ jobs:
           images: |
             ghcr.io/${{ github.repository_owner }}/${{ inputs.app_name }}
           flavor: latest=false
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}/{{ inputs.containerfile_path }}
+            org.opencontainers.image.title=${{ inputs.app_name }}
+            org.opencontainers.image.version=${{ inputs.app_version }}
+            org.opencontainers.image.url=https://ghcr.io/${{ github.repository_owner }}/${{ inputs.app_name }}
           tags: |
             type=semver,pattern={{version}},value=${{ inputs.app_version }}
             type=semver,pattern={{major}}.{{minor}},value=${{ inputs.app_version }}
@@ -55,4 +61,5 @@ jobs:
         with:
           file: ${{ inputs.containerfile_path }}
           push: true
+          labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
