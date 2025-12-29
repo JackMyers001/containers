@@ -28,16 +28,15 @@ jobs:
       - name: Docker meta
         uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
         id: meta
+        env:
+          DOCKER_METADATA_ANNOTATIONS_LEVELS: manifest,index
         with:
           images: |
             ghcr.io/${{ github.repository_owner }}/${{ inputs.app_name }}
           flavor: latest=false
-          labels: |
-            org.opencontainers.image.revision=${{ github.sha }}
+          annotations: |
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}/{{ inputs.containerfile_path }}
             org.opencontainers.image.title=${{ inputs.app_name }}
-            org.opencontainers.image.version=${{ inputs.app_version }}
-            org.opencontainers.image.url=https://ghcr.io/${{ github.repository_owner }}/${{ inputs.app_name }}
           tags: |
             type=semver,pattern={{version}},value=${{ inputs.app_version }}
             type=semver,pattern={{major}}.{{minor}},value=${{ inputs.app_version }}
@@ -61,5 +60,5 @@ jobs:
         with:
           file: ${{ inputs.containerfile_path }}
           push: true
-          labels: ${{ steps.meta.outputs.labels }}
+          annotations: ${{ steps.meta.outputs.annotations }}
           tags: ${{ steps.meta.outputs.tags }}
