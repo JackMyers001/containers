@@ -32,7 +32,9 @@ jobs:
     needs:
       - extract_version
     permissions:
+      attestations: write
       contents: read
+      id-token: write
       packages: write
     with:
       app_name: caddy
