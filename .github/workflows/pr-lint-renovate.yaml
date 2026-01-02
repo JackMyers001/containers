@@ -18,7 +18,8 @@ jobs:
     outputs:
       changed-renovate-files: ${{ steps.changed-renovate-files.outputs.all_changed_files }}
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Get all changed Renovate config files
         id: changed-renovate-files
@@ -43,7 +44,8 @@ jobs:
       fail-fast: false
       max-parallel: 4
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Validate Renovate Configuration
         run: |
