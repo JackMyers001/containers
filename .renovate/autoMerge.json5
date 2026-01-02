@@ -5,7 +5,6 @@
       description: "Auto-merge trusted Container images (MAJOR)",
       matchManagers: ["dockerfile"],
       matchPackageNames: [
-        "ghcr.io/renovatebot/renovate",
       ],
       automerge: true,
       matchUpdateTypes: ["major", "minor", "patch", "digest"],
@@ -28,6 +27,7 @@
         "/^actions\//",
         "/^docker\//",
         "/^github\//",
+        "ghcr.io/renovatebot/renovate",
       ],
       automerge: true,
       matchUpdateTypes: [
