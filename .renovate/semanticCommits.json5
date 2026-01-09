@@ -1,0 +1,24 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    {
+      matchUpdateTypes: ["major", "minor", "patch"],
+      commitMessageExtra: "({{currentVersion}} → {{newVersion}})",
+    },
+    {
+      matchUpdateTypes: ["digest"],
+      commitMessageExtra: "({{currentDigestShort}} → {{newDigestShort}})",
+    },
+    {
+      matchDatasources: ["docker"],
+      semanticCommitScope: "container",
+      commitMessageTopic: "image {{depName}}",
+    },
+    {
+      matchManagers: ["github-actions"],
+      semanticCommitType: "ci",
+      semanticCommitScope: "github-action",
+      commitMessageTopic: "Action {{depName}}",
+    },
+  ]
+}
