@@ -34,7 +34,7 @@ jobs:
     name: Lint Renovate Config
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/renovatebot/renovate:42.95.7@sha256:cac05c9e5bef9649d6fd2d9ff78d7b884abc09ca38de0f5e88f2c9aea9b2abb6
+      image: ghcr.io/renovatebot/renovate:42.95.8@sha256:c371ab5309957028459fede6e669a8f8754dc0f0038a2199c3c8fb7a0ef684cd
       options: --user 0
     needs:
       - prepare
